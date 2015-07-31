@@ -10,6 +10,40 @@
 
     <name>urlmon</name>
     <description>URL Monitor</description>
+    <inceptionYear>2015</inceptionYear>
+
+    <organization>
+        <name>ESHA Research</name>
+        <url>http://www.esha.com/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>celkins</id>
+            <name>Christopher Elkins</name>
+            <email>chrise at esha.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/esha/urlmon.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/esha/urlmon.git</developerConnection>
+        <url>https://github.com/esha/urlmon</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/esha/urlmon/issues</url>
+    </issueManagement>
 
     <parent>
         <groupId>io.spring.platform</groupId>
