@@ -15,13 +15,13 @@ import static java.util.Objects.requireNonNull;
 @Component
 public class SNSResourceMetadataTopic implements ResourceMetadataTopic {
 
+    static final String DEFAULT_SNS_SUBJECT = "ResourceCheckedEvent";
+
     private final NotificationMessagingTemplate notificationMessagingTemplate;
     private final ObjectMapper objectMapper;
 
-    @Value("{sns.topicName}")
+    @Value("${sns.topicName:ResourceMetadataTopic}")
     private String snsTopicName;
-
-    private String snsSubject = "ResourceCheckedEvent";
 
     @Autowired
     public SNSResourceMetadataTopic(NotificationMessagingTemplate notificationMessagingTemplate, ObjectMapper objectMapper) {
@@ -34,6 +34,6 @@ public class SNSResourceMetadataTopic implements ResourceMetadataTopic {
         //FIXME Instead of propagating any exception, notify the dead-letter topic
         String message = this.objectMapper.writeValueAsString(event);
 
-        this.notificationMessagingTemplate.sendNotification(this.snsTopicName, message, this.snsSubject);
+        this.notificationMessagingTemplate.sendNotification(this.snsTopicName, message, DEFAULT_SNS_SUBJECT);
     }
 }

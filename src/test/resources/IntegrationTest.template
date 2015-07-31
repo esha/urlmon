@@ -1,0 +1,59 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Integration Test Template",
+  "Resources": {
+    "ResourceQueue": {
+      "Type": "AWS::SQS::Queue"
+    },
+    "ResourceMetadataTopicQueue": {
+      "Type": "AWS::SQS::Queue"
+    },
+    "ResourceMetadataTopic": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "Subscription": [
+          {
+            "Endpoint": {
+              "Fn::GetAtt": [ "ResourceMetadataTopicQueue", "Arn" ]
+            },
+            "Protocol": "sqs"
+          }
+        ]
+      }
+    },
+    "SnsToSqsPolicy": {
+      "Type": "AWS::SQS::QueuePolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Id": "SnsToSqsPolicy",
+          "Statement": [
+            {
+              "Sid": "Allow-Sns-SendMessage",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": [ "sqs:SendMessage" ],
+              "Resource": {
+                "Fn::GetAtt": [ "ResourceMetadataTopicQueue", "Arn" ]
+              },
+              "Condition": {
+                "ArnEquals": {
+                  "aws:SourceArn": {
+                    "Ref": "ResourceMetadataTopic"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Queues": [
+          {
+            "Ref": "ResourceMetadataTopicQueue"
+          }
+        ]
+      }
+    }
+  }
+}
