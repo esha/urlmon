@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aws-messaging="http://www.springframework.org/schema/cloud/aws/messaging"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/cloud/aws/messaging
+        http://www.springframework.org/schema/cloud/aws/messaging/spring-cloud-aws-messaging-1.0.xsd">
+
+    <aws-messaging:annotation-driven-queue-listener />
+
+    <aws-messaging:queue-messaging-template id="queueMessagingTemplate" />
+
+    <aws-messaging:notification-messaging-template id="notificationMessagingTemplate"/>
+
+</beans>
